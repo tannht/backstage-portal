@@ -8,8 +8,8 @@ services:
     ports:
       - "3000:3000"
     environment:
-      - NODE_ENV=production
-      # Include other environment variables as needed
+      - NODE_ENV=development
     volumes:
       - .:/app
       - /app/node_modules
+    command: yarn start
