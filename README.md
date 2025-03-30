@@ -6,6 +6,7 @@ This repository contains the ACCESSTRADE Backstage Portal application. Follow th
 
 - [Local Development](#local-development)
 - [Environment Configuration](#environment-configuration)
+- [Docker Deployment](#docker-deployment)
 - [Deploying to Vercel](#deploying-to-vercel)
   - [Method 1: Using Vercel CLI](#method-1-using-vercel-cli)
   - [Method 2: Using Vercel Dashboard](#method-2-using-vercel-dashboard)
@@ -55,6 +56,81 @@ AUTH_SECRET=your_auth_secret
 ```
 
 Ensure all environment variables are properly set before deployment.
+
+## Docker Deployment
+
+This project can be run using Docker, which provides an isolated and consistent environment.
+
+### Prerequisites
+
+- [Docker](https://docs.docker.com/get-docker/)
+- [Docker Compose](https://docs.docker.com/compose/install/) (optional but recommended)
+
+### Running with Docker
+
+1. **Build and run the Docker container**
+   ```bash
+   docker build -t backstage-portal .
+   docker run -p 3000:3000 backstage-portal
+   ```
+
+2. **Access the application**
+   - Open your browser and navigate to `http://localhost:3000`
+
+### Running with Docker Compose
+
+1. **Start the application**
+   ```bash
+   docker-compose up
+   ```
+
+2. **Start in detached mode (run in background)**
+   ```bash
+   docker-compose up -d
+   ```
+
+3. **Stop the application**
+   ```bash
+   docker-compose down
+   ```
+
+### Environment Variables with Docker
+
+You can set environment variables in the following ways:
+
+1. **In the docker-compose.yml file**
+   ```yaml
+   environment:
+     - API_URL=https://api.example.com
+     - AUTH_SECRET=your_auth_secret
+   ```
+
+2. **Using an env file with Docker Compose**
+   ```bash
+   docker-compose --env-file .env.local up
+   ```
+
+3. **Using environment variables with docker run**
+   ```bash
+   docker run -p 3000:3000 -e API_URL=https://api.example.com -e AUTH_SECRET=your_auth_secret backstage-portal
+   ```
+
+### Docker in Development
+
+For development with hot-reloading:
+
+1. **Modify the docker-compose.yml file**
+   ```yaml
+   command: npm run dev
+   volumes:
+     - .:/app
+     - /app/node_modules
+   ```
+
+2. **Run Docker Compose**
+   ```bash
+   docker-compose up
+   ```
 
 ## Deploying to Vercel
 
